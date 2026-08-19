@@ -9,6 +9,7 @@
 
 class QProgressBar;
 class QTextEdit;
+class QPushButton;
 
 class MainWindow : public QMainWindow
 {
@@ -18,9 +19,19 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+signals:
+    void signalStartProcess(const QStringList& list);
+
+private slots:
+    void slotStartProcess(const QStringList& vec);
+    void slotStartClicked();
+    void slotProcessFinished();
+
 private:
     QProgressBar* progress_bar_;
-    QTextEdit* text_edit_;
+    QTextEdit* in_text_edit_;
+    QTextEdit* out_text_edit_;
+    QPushButton* start_btn_;
 
     ToUpperWorker worker_;
     QFutureWatcher<QString> watcher_;
